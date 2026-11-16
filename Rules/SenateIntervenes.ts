@@ -18,9 +18,11 @@ export interface SenateContext {
   /** How much more likely the Senate is to stand aside, from a wonder for example, as the rule set measures it. */
   bonus?: number;
   /**
-   * This turn's roll, for a Senate that intervenes by chance. A rule must not draw it itself: the same question can be
-   * asked more than once (an action's criteria ask once for each form it's offered in), so the caller passes a roll
-   * the rule set keeps for the turn.
+   * A roll for a Senate that intervenes by chance, for a caller that has one, overriding the rule set's own. A rule
+   * must not draw a number itself: the same question can be asked more than once (an action's criteria ask once for
+   * each form it's offered in). The rule set keeps the turn's roll (and any other state, such as whether a Republic's
+   * Senate is in session this turn) as saved state of its own and its rule reads it, so a reloaded game doesn't roll
+   * again.
    */
   roll?: number;
   [key: string]: unknown;

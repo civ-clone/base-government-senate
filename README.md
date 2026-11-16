@@ -18,11 +18,13 @@ does.
 - `reputation`: the other player's reputation;
 - `sneakAttack`: whether the other player attacked this one without declaring war;
 - `bonus`: how much more likely the Senate is to stand aside, from a wonder for example;
-- `roll`: this turn's roll, for a Senate that intervenes by chance.
+- `roll`: a roll for a Senate that intervenes by chance, for a caller that has one; it overrides the rule set's own.
 
 A rule should not draw a random number itself. The same question can be asked more than once for one decision (an
-action's criteria ask once for each form it's offered in), so a Senate that intervenes by chance reads a roll the rule
-set keeps for the turn.
+action's criteria ask once for each form it's offered in). A Senate that intervenes by chance (Civilization II's: a roll
+each turn, and a Republic's Senate in session one turn in three) keeps the turn's roll and that flag as the rule set's
+own saved state, rolled once a turn, and its rule reads them. The state must be saved: a reloaded game must not roll
+again.
 
 ## `lib/senate`
 
@@ -42,3 +44,11 @@ new SenateIntervenes(
 ```
 
 and asks `senateIntervenes(player, other, { reason: 'break-treaty' }, ruleRegistry)` where it would break one.
+
+## Who asks
+
+- civ1-unit's unit actions ask `senateIntervenes` before breaking a treaty, and civ1-unit registers Civ1's rule.
+- The diplomacy readers don't ask the rule yet: base-diplomacy's `Readers.hasSenate` is a rule set's own predicate, and
+  civ1-diplomacy answers it with its own `republican` (Republic or Democracy, the same answer as Civ1's rule).
+  base-diplomacy's reader is being widened to take the other player, and civ2-diplomacy will route it through
+  `senateIntervenes`. Civ1's diplomacy stays on its own predicate.
