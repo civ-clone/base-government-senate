@@ -1,0 +1,13 @@
+{
+  "name": "@civ-clone/base-government-senate",
+  "version": "0.0.0",
+  "description": "Whether a player's Senate steps in, for example to stop it breaking a treaty: the SenateIntervenes rules, and the usual Senate of a Republic or a Democracy.",
+  "repository": "git@github.com:civ-clone/base-government-senate.git",
+  "keywords": [
+    "typescript",
+    "civilization"
+  ],
+  "author": "dom111 <dom111@users.noreply.github.com>",
+  "license": "MIT",
+  "private": false
+}
